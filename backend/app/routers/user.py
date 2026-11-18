@@ -31,12 +31,12 @@ def update_my_profile(
 
     try:
         db.commit()
-    except IntegrityError as e:
+    except IntegrityError as exc:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="Display name is already in use"
-        )
+        ) from exc
     db.refresh(user)
     return user
 

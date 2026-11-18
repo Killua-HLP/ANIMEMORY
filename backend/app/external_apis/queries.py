@@ -28,3 +28,23 @@ query ($search: String, $page: Int, $perPage: Int) {
   }
 }
 """
+
+ANIME_DETAIL_QUERY = """
+query ($id: Int!) {
+    Media(id: $id, type: ANIME){
+    id
+    title {
+      romaji
+      english
+      native
+    }
+    coverImage{
+      large
+    }
+    episodes
+    status
+    averageScore
+    description
+  }
+}
+"""
