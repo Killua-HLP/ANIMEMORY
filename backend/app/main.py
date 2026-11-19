@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from sqlalchemy import text
 from app.config import settings
 from app.database import get_db
 from app.routers.auth import router as authrouter

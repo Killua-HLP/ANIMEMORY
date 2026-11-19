@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 from unittest.mock import patch, AsyncMock
@@ -52,7 +51,7 @@ fake_detail_response = {
         "description": "GuGuGArGAr Naruto"
     }
 }
-def test_anime_search():
+def test_anime_search(client):
     with patch(
         "app.services.anime_service.send_anilist_request",
         new_callable=AsyncMock
@@ -68,7 +67,7 @@ def test_anime_search():
 
         mock_request.assert_awaited_once()
 
-def test_anime_search_service_unavailable():
+def test_anime_search_service_unavailable(client):
     with patch(
         "app.services.anime_service.send_anilist_request",
         new_callable=AsyncMock
@@ -83,12 +82,12 @@ def test_anime_search_service_unavailable():
             "Anime search service is temporarily unavailable"
         )
 
-def test_anime_search_invalid_input():
+def test_anime_search_invalid_input(client):
     response = client.get("/anime/search?search=")
 
     assert response.status_code == 422
 
-def test_anime_detail():
+def test_anime_detail(client):
     with patch(
         "app.services.anime_service.send_anilist_request",
         new_callable=AsyncMock
@@ -103,7 +102,7 @@ def test_anime_detail():
 
         mock_request.assert_awaited_once()
 
-def test_detail_service_unavailable():
+def test_detail_service_unavailable(client):
     with patch(
         "app.services.anime_service.send_anilist_request",
         new_callable=AsyncMock
@@ -118,7 +117,7 @@ def test_detail_service_unavailable():
             "Anime service is temporarily unavailable"
         )
 
-def test_detail_anime_not_found():
+def test_detail_anime_not_found(client):
     with patch(
         "app.services.anime_service.send_anilist_request",
         new_callable=AsyncMock
