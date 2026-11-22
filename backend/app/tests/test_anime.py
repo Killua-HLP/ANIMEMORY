@@ -131,4 +131,3 @@ def test_detail_anime_not_found(client):
         assert response.json()["detail"] == (
             "Anime not found"
         )
-        

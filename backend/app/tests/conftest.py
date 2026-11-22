@@ -18,7 +18,7 @@ TestingsessionLocal = sessionmaker(
     autocommit=False
 )
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 
 def test_db():
     Base.metadata.create_all(bind=test_engine)
